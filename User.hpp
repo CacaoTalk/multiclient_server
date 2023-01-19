@@ -14,7 +14,7 @@ class User {
 		std::string _replyBuffer;
 
 		User(const User& user);
-		const User& operator=(const User& user);
+		User& operator=(const User& user);
 
 	public:
 		User();
