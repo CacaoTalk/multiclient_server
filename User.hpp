@@ -21,6 +21,7 @@ class User {
 	public:
         User(int fd);
 		~User();
+		int getFd(void) const;
 };
 
 #endif
