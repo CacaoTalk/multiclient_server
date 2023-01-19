@@ -21,7 +21,7 @@ using namespace std;
 class Server {
     private:
         int _fd;
-		map<string, User *> allUser;
+		map<string, User *> _allUser;
 
         Server(const Server& server);
         Server& operator=(const Server& server);
