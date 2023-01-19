@@ -13,11 +13,12 @@ class User {
 		std::string _cmdBuffer;
 		std::string _replyBuffer;
 
+		User(void);
 		User(const User& user);
 		User& operator=(const User& user);
 
 	public:
-		User();
+        User(int fd);
 		~User();
 };
 
