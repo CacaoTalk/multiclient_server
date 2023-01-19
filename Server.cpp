@@ -28,9 +28,9 @@ void Server::initKqueue() {
         throw runtime_error("kqueue() error");
 }
 
- void Server::updateEvents(int16_t filter, uint16_t flags, uint32_t fflags, intptr_t data, void *udata) {
+void Server::updateEvents(int16_t filter, uint16_t flags, uint32_t fflags, intptr_t data, void *udata) {
 	struct kevent event;
 
 	EV_SET(&event, _fd, filter, flags, fflags, data, udata);
 	_eventCheckList.push_back(event);
- }
+}
