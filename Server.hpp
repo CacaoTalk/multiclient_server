@@ -6,11 +6,12 @@
 # include <string>
 # include <map>
 # include "User.hpp"
+using namespace std;
 
 class Server {
     private:
         int _fd;
-		std::map<std::string, User *> allUser;
+		map<string, User *> allUser;
 
         Server(const Server& server);
         Server& operator=(const Server& server);

@@ -5,12 +5,13 @@
 
 # include <map>
 # include "User.hpp"
+using namespace std;
 
 class Channel {
     private:
-		std::string _name;
-		map<std::string, User *> _userList;
-		map<std::string, User *> _operList; // kick, user check
+		string _name;
+		map<string, User *> _userList;
+		map<string, User *> _operList; // kick, user check
 
         Channel(const Channel& channel);
         Channel& operator=(const Channel& channel);
