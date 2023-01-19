@@ -1,11 +1,11 @@
 #include "Server.hpp"
 #include <iostream>
 
-Server::Server() {
+Server::Server(): _fd(-1), _kq(-1) {
 	struct sockaddr_in serverAddr;
 
 	if ((_fd = socket(PF_INET, SOCK_STREAM, 0)) == -1)
-		throw runtime_error("socket() error");
+		shutDown("socket() error");
 	
 	memset(&serverAddr, 0, sizeof(serverAddr));
     serverAddr.sin_family = AF_INET;
@@ -15,17 +15,31 @@ Server::Server() {
 	updateEvents(EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, NULL);
 
 	if (bind(_fd, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) == -1)
-        throw runtime_error("bind() error");
+        shutDown("bind() error");
 
 	if (listen(_fd, 5) == -1)
-        throw runtime_error("listen() error");
+        shutDown("listen() error");
 }
 
 Server::~Server() { }
 
+void Server::shutDown(const string& msg) {
+	if (_fd != -1)
+		close(_fd);
+	if (_kq != -1)
+		close(_kq);
+	map<string, User *>::iterator it;
+	for (it = _allUser.begin(); it != _allUser.end(); it++) {
+		close(it->second->getFd());
+		delete it->second;
+	}
+	// delete channels
+	shutDown(msg);
+}
+
 void Server::initKqueue() {
     if ((_kq = kqueue()) == -1)
-        throw runtime_error("kqueue() error");
+        shutDown("kqueue() error");
 }
 
 void Server::updateEvents(int16_t filter, uint16_t flags, uint32_t fflags, intptr_t data, void *udata) {
