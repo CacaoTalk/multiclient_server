@@ -26,6 +26,7 @@ class Channel {
         void addUser(int clientFd, User *user);
         int deleteUser(int clientFd);
         bool isUserOper(int clientFd);
+        void broadcast(const string& msg);
 };
 
 #endif
