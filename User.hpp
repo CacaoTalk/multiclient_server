@@ -23,6 +23,12 @@ class User {
 		~User();
 		
 		string getNickname(void) const;
+		string getCmdBuffer(void);
+		string getReplyBuffer(void);
+		void setCmdBuffer(const char *str);
+		void setReplyBuffer(const char *str);
+		void addToCmdBuffer(const char *str); // 채팅 받아오기
+		void addToReplyBuffer(const char *str); // write할 버퍼 추가
 };
 
 #endif
