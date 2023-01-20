@@ -41,6 +41,7 @@ class Server {
         void acceptNewClient(const struct kevent& event);
         void readDataFromClient(const struct kevent& event);
         void sendDataToClient(const struct kevent& event);
+        void handleEvent(const struct kevent& event);
 
         User* findClientByNickname(string nickname);
     public:

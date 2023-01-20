@@ -120,6 +120,28 @@ void Server::sendDataToClient(const struct kevent& event) {
 	}
 }
 
+void Server::handleEvent(const struct kevent& event) {
+	if (event.flags & EV_ERROR)
+	{
+		if (event.ident == _fd)
+			shutDown("server socket error");
+		else
+		{
+			cerr << "client socket error" << endl;
+			disconnectClient(event.ident);
+		}
+	}
+	else if (event.filter == EVFILT_READ)
+	{
+		if (event.ident == _fd)
+			acceptNewClient(event);
+		else
+			readDataFromClient(event);
+	}
+	else if (event.filter == EVFILT_WRITE)
+		sendDataToClient(event);
+}
+
 void Server::shutDown(const string& msg) {
 	if (_fd != -1)
 		close(_fd);
