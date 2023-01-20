@@ -142,6 +142,20 @@ void Server::handleEvent(const struct kevent& event) {
 		sendDataToClient(event);
 }
 
+void Server::run() {
+	int numOfEvents;
+
+	while (1) {
+        numOfEvents = kevent(_kq, &_eventCheckList[0], _eventCheckList.size(), _waitingEvents, 8, NULL);
+        if (numOfEvents == -1)
+            shutDown("kevent() error");
+	
+        _eventCheckList.clear();
+        for (int i = 0; i < numOfEvents; ++i)
+            handleEvent(_waitingEvents[i]);
+    }
+}
+
 void Server::shutDown(const string& msg) {
 	if (_fd != -1)
 		close(_fd);
