@@ -12,7 +12,7 @@ endif
 NAME	= server
 
 ################ FILE ################
-SRCS	= main.cpp Server.cpp
+SRCS	= main.cpp Server.cpp Channel.cpp User.cpp
 
 ################ OBJ #################
 OBJS	= $(SRCS:%.cpp=%.o)
