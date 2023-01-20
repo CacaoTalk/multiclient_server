@@ -123,7 +123,7 @@ void Server::sendDataToClient(const struct kevent& event) {
 void Server::handleEvent(const struct kevent& event) {
 	if (event.flags & EV_ERROR)
 	{
-		if (event.ident == _fd)
+		if (event.ident == (const uintptr_t)_fd)
 			shutDown("server socket error");
 		else
 		{
@@ -133,7 +133,7 @@ void Server::handleEvent(const struct kevent& event) {
 	}
 	else if (event.filter == EVFILT_READ)
 	{
-		if (event.ident == _fd)
+		if (event.ident == (const uintptr_t)_fd)
 			acceptNewClient();
 		else
 			readDataFromClient(event);
