@@ -134,7 +134,7 @@ void Server::handleEvent(const struct kevent& event) {
 	else if (event.filter == EVFILT_READ)
 	{
 		if (event.ident == _fd)
-			acceptNewClient(event);
+			acceptNewClient();
 		else
 			readDataFromClient(event);
 	}
