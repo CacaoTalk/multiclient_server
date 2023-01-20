@@ -33,6 +33,7 @@ class Server {
         Server& operator=(const Server& server);
 
         void shutDown(const string& msg);
+        void disconnectClient(int clientFd);
         void initKqueue();
         void updateEvents(int socket, int16_t filter, uint16_t flags, uint32_t fflags, intptr_t data, void *udata);
 

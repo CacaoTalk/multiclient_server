@@ -37,6 +37,19 @@ void Server::shutDown(const string& msg) {
 	shutDown(msg);
 }
 
+void Server::disconnectClient(int clientFd) {
+	User *user = _allUser[clientFd];
+	map<string, Channel *>::iterator it;
+
+	cout << "client disconnected: " << clientFd << '\n';
+	for (it = _allChannel.begin(); it != _allChannel.end(); ++it) {
+		it->second->deleteUser(clientFd);
+	}
+    close(clientFd);
+    _allUser.erase(clientFd);
+	delete user;
+}
+
 void Server::initKqueue() {
     if ((_kq = kqueue()) == -1)
         shutDown("kqueue() error");
