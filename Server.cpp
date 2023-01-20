@@ -28,12 +28,13 @@ void Server::shutDown(const string& msg) {
 		close(_fd);
 	if (_kq != -1)
 		close(_kq);
-	map<int, User *>::iterator it;
-	for (it = _allUser.begin(); it != _allUser.end(); it++) {
+	for (map<int, User *>::iterator it = _allUser.begin(); it != _allUser.end(); it++) {
 		close(it->first);
 		delete it->second;
 	}
-	// delete channels
+	for (map<string, Channel *>::iterator it = _allChannel.begin(); it != _allChannel.end(); it++) {
+		delete it->second;
+	}
 	shutDown(msg);
 }
 
