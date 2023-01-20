@@ -69,6 +69,24 @@ void Server::deleteChannel(const string& name) {
 	_allChannel.erase(name);
 }
 
+void Server::acceptNewClient(const struct kevent& event) {
+	int clientSocket;
+	User *user;
+
+	if ((clientSocket = accept(_fd, NULL, NULL)) == -1)
+		shutDown("accept() error");
+	cout << "accept new client: " << clientSocket << endl;
+	fcntl(clientSocket, F_SETFL, O_NONBLOCK);
+
+	/* add event for client socket - add read && write event */
+	updateEvents(clientSocket, EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, NULL);
+	updateEvents(clientSocket, EVFILT_WRITE, EV_ADD | EV_ENABLE, 0, 0, NULL);
+	user = new User(clientSocket);
+	_allUser.insert(pair<int, User *>(clientSocket, user));
+	// channel에 추가 (추후 join 시에만 추가하도록 수정)
+	_allChannel.begin()->second->addUser(clientSocket, user);
+}
+
 void Server::readDataFromClient(const struct kevent& event) {
 	char buf[512];
 	User* targetUser = _allUser[event.ident];

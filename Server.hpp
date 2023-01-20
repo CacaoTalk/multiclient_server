@@ -38,6 +38,7 @@ class Server {
         void addChannel(const string& name);
         void deleteChannel(const string& name);
 
+        void acceptNewClient(const struct kevent& event);
         void readDataFromClient(const struct kevent& event);
 
         User* findClientByNickname(string nickname);
