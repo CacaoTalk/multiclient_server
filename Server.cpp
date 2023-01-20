@@ -69,7 +69,7 @@ void Server::deleteChannel(const string& name) {
 	_allChannel.erase(name);
 }
 
-void Server::acceptNewClient(const struct kevent& event) {
+void Server::acceptNewClient() {
 	int clientSocket;
 	User *user;
 
@@ -89,7 +89,7 @@ void Server::acceptNewClient(const struct kevent& event) {
 
 void Server::readDataFromClient(const struct kevent& event) {
 	char buf[512];
-	User* targetUser = _allUser[event.ident];
+	// User* targetUser = _allUser[event.ident];
 	int readBytes;
 
 	readBytes = read(event.ident, buf, sizeof(buf));
@@ -168,5 +168,6 @@ void Server::shutDown(const string& msg) {
 	for (map<string, Channel *>::iterator it = _allChannel.begin(); it != _allChannel.end(); it++) {
 		delete it->second;
 	}
+	cerr << msg << endl;
 	exit(EXIT_FAILURE);
 }
