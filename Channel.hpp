@@ -4,20 +4,23 @@
 # define CHANNEL_HPP
 
 # include <map>
+# include <set>
 # include "User.hpp"
 using namespace std;
+
 
 class Channel {
     private:
 		string _name;
-		map<string, User *> _userList;
-		map<string, User *> _operList; // kick, user check
+		map<int, User *> _userList;
+		set<int> _operList;
 
+        Channel(void);
         Channel(const Channel& channel);
         Channel& operator=(const Channel& channel);
 
     public:
-        Channel(void);
+        Channel(const string& name);
         ~Channel();
 };
 
