@@ -23,21 +23,6 @@ Server::Server(): _fd(-1), _kq(-1) {
 
 Server::~Server() { }
 
-void Server::shutDown(const string& msg) {
-	if (_fd != -1)
-		close(_fd);
-	if (_kq != -1)
-		close(_kq);
-	for (map<int, User *>::iterator it = _allUser.begin(); it != _allUser.end(); it++) {
-		close(it->first);
-		delete it->second;
-	}
-	for (map<string, Channel *>::iterator it = _allChannel.begin(); it != _allChannel.end(); it++) {
-		delete it->second;
-	}
-	exit(EXIT_FAILURE);
-}
-
 void Server::disconnectClient(int clientFd) {
 	User *user = _allUser[clientFd];
 	map<string, Channel *>::iterator it;
@@ -82,4 +67,19 @@ void Server::addChannel(const string& name) {
 void Server::deleteChannel(const string& name) {
 	cout << "channel deleted: " << name << '\n';
 	_allChannel.erase(name);
+}
+
+void Server::shutDown(const string& msg) {
+	if (_fd != -1)
+		close(_fd);
+	if (_kq != -1)
+		close(_kq);
+	for (map<int, User *>::iterator it = _allUser.begin(); it != _allUser.end(); it++) {
+		close(it->first);
+		delete it->second;
+	}
+	for (map<string, Channel *>::iterator it = _allChannel.begin(); it != _allChannel.end(); it++) {
+		delete it->second;
+	}
+	exit(EXIT_FAILURE);
 }
