@@ -145,6 +145,10 @@ void Server::handleEvent(const struct kevent& event) {
 void Server::run() {
 	int numOfEvents;
 
+	// temp Channel
+	addChannel("tempChannel");
+	
+	initKqueue();
 	while (1) {
         numOfEvents = kevent(_kq, &_eventCheckList[0], _eventCheckList.size(), _waitingEvents, 8, NULL);
         if (numOfEvents == -1)
