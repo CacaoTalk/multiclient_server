@@ -16,18 +16,22 @@ string User::getReplyBuffer(void) {
     return _replyBuffer;
 }
 
-void User::setCmdBuffer(const char *str) {
+void User::setCmdBuffer(const string& str) {
     _cmdBuffer = str;
 }
 
-void User::setReplyBuffer(const char *str) {
+void User::setReplyBuffer(const string& str) {
     _replyBuffer = str;
 }
 
-void User::addToCmdBuffer(const char *str) {
+void User::addToCmdBuffer(const string& str) {
     _cmdBuffer.append(str);
 }
 
-void User::addToReplyBuffer(const char *str) {
+void User::addToReplyBuffer(const string& str) {
+    _replyBuffer.append(str);
+}
+
+void User::addToReplyBuffer(const string& str) {
     _replyBuffer.append(str);
 }
