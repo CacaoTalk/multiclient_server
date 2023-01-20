@@ -32,7 +32,7 @@ class Server {
 
         void shutDown(const string& msg);
         void initKqueue();
-        void updateEvents(int16_t filter, uint16_t flags, uint32_t fflags, intptr_t data, void *udata);
+        void updateEvents(int socket, int16_t filter, uint16_t flags, uint32_t fflags, intptr_t data, void *udata);
 
     public:
         Server(void);
