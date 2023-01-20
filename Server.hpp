@@ -23,7 +23,7 @@ class Server {
     private:
         int _fd;
         int _kq;
-		map<string, User *> _allUser;
+        map<int, User *> _allUser;
         vector<struct kevent> _eventCheckList;
         struct kevent _waitingEvents[8];
 
