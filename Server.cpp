@@ -69,6 +69,24 @@ void Server::deleteChannel(const string& name) {
 	_allChannel.erase(name);
 }
 
+void Server::readDataFromClient(const struct kevent& event) {
+	char buf[512];
+	User* targetUser = _allUser[event.ident];
+	int readBytes;
+
+	readBytes = read(event.ident, buf, sizeof(buf));
+	if (readBytes <= 0) {
+		cerr << "client read error!" << endl;
+		disconnectClient(event.ident);
+	} else {
+		buf[readBytes] = '\0';
+		// targetUser->addToCmdBuffer(buf);
+		// CR LF check -> exist -> parsing
+		// parsed msg -> command에 맞게 처리
+		_allChannel.begin()->second->broadcast(buf);
+	}
+}
+
 void Server::shutDown(const string& msg) {
 	if (_fd != -1)
 		close(_fd);
