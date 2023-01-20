@@ -35,7 +35,7 @@ void Server::shutDown(const string& msg) {
 	for (map<string, Channel *>::iterator it = _allChannel.begin(); it != _allChannel.end(); it++) {
 		delete it->second;
 	}
-	shutDown(msg);
+	exit(EXIT_FAILURE);
 }
 
 void Server::disconnectClient(int clientFd) {
