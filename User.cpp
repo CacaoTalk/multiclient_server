@@ -31,7 +31,3 @@ void User::addToCmdBuffer(const string& str) {
 void User::addToReplyBuffer(const string& str) {
     _replyBuffer.append(str);
 }
-
-void User::addToReplyBuffer(const string& str) {
-    _replyBuffer.append(str);
-}
