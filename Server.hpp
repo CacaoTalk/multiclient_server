@@ -16,6 +16,7 @@
 # include <vector>
 
 # include "User.hpp"
+# include "Channel.hpp"
 
 using namespace std;
 
@@ -24,6 +25,7 @@ class Server {
         int _fd;
         int _kq;
         map<int, User *> _allUser;
+        map<string, Channel *> _allChannel;
         vector<struct kevent> _eventCheckList;
         struct kevent _waitingEvents[8];
 
