@@ -105,6 +105,21 @@ void Server::readDataFromClient(const struct kevent& event) {
 	}
 }
 
+void Server::sendDataToClient(const struct kevent& event) {
+	User *targetUser = _allUser[event.ident];
+	int readBytes;
+
+	if (targetUser->getReplyBuffer().empty()) return;
+
+	if ((readBytes = write(event.ident, targetUser->getReplyBuffer().c_str(), targetUser->getReplyBuffer().length()) == -1))
+	{
+		cerr << "client write error!" << endl;
+		disconnectClient(event.ident);  
+	} else {
+		targetUser->setReplyBuffer("");
+	}
+}
+
 void Server::shutDown(const string& msg) {
 	if (_fd != -1)
 		close(_fd);
