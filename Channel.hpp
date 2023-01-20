@@ -22,6 +22,10 @@ class Channel {
     public:
         Channel(const string& name);
         ~Channel();
+
+        void addUser(int clientFd, User *user);
+        int deleteUser(int clientFd);
+        bool isUserOper(int clientFd);
 };
 
 #endif
