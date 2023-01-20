@@ -70,3 +70,16 @@ User* Server::findClientByNickname(string nickname) {
 	}
 	return NULL;
 }
+
+void Server::addChannel(const string& name) {
+	Channel *ch;
+
+	ch = new Channel(name);
+	cout << "channel added: " << name << '\n';
+	_allChannel.insert(pair<string, Channel *>(name, ch));
+}
+
+void Server::deleteChannel(const string& name) {
+	cout << "channel deleted: " << name << '\n';
+	_allChannel.erase(name);
+}
