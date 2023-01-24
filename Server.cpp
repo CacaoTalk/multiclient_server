@@ -69,7 +69,7 @@ void Server::deleteChannel(const string& name) {
 	_allChannel.erase(name);
 }
 
-void Server::acceptNewClient() {
+void Server::acceptNewClient(void) {
 	int clientSocket;
 	User *user;
 

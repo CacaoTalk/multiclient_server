@@ -38,7 +38,7 @@ class Server {
         void addChannel(const string& name);
         void deleteChannel(const string& name);
 
-        void acceptNewClient(const struct kevent& event);
+        void acceptNewClient(void);
         void readDataFromClient(const struct kevent& event);
         void sendDataToClient(const struct kevent& event);
         void handleEvent(const struct kevent& event);
