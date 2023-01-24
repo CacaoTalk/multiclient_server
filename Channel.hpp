@@ -6,6 +6,7 @@
 # include <map>
 # include <set>
 # include "User.hpp"
+# define UNDEFINED_FD -1
 using namespace std;
 
 
@@ -26,7 +27,7 @@ class Channel {
         void addUser(int clientFd, User *user);
         int deleteUser(int clientFd);
         bool isUserOper(int clientFd);
-        void broadcast(const string& msg);
+        void broadcast(const string& msg, int ignoreFd = UNDEFINED_FD);
 };
 
 #endif

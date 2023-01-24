@@ -101,7 +101,7 @@ void Server::readDataFromClient(const struct kevent& event) {
 		// targetUser->addToCmdBuffer(buf);
 		// CR LF check -> exist -> parsing
 		// parsed msg -> command에 맞게 처리
-		_allChannel.begin()->second->broadcast(buf);
+		_allChannel.begin()->second->broadcast(buf, event.ident);
 	}
 }
 

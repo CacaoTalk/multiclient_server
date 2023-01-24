@@ -42,10 +42,12 @@ bool Channel::isUserOper(int clientFd) {
         return false;
 }
 
-void Channel::broadcast(const string& msg) {
+void Channel::broadcast(const string& msg, int ignoreFd) {
     map<int, User *>::iterator it;
 
     for(it = _userList.begin(); it != _userList.end(); ++it) {
+        if (it->first == ignoreFd) continue;
+
         it->second->addToReplyBuffer(msg);
     }
 }
